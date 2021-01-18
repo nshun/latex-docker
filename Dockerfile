@@ -28,7 +28,7 @@ RUN apk --no-cache add \
       perl-app-cpanminus &&\
     rm -rf /var/cache/apk/*
 
-RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz &&\
+RUN wget http://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2020/install-tl-unx.tar.gz &&\
     tar xzvf install-tl-unx.tar.gz &&\
     cd install-tl* &&\
     ./install-tl -profile ../install.profile &&\
