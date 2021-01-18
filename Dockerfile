@@ -1,13 +1,27 @@
-# https://hub.docker.com/r/tianon/latex/dockerfile
-# FROM tianon/latex
+# https://tex.stackexchange.com/questions/397174/minimal-texlive-installation
+FROM alpine
 
-FROM debian:stretch-slim
+ENV TEXLIVE_INSTALL_NO_CONTEXT_CACHE=1 \
+    NOPERLDOC=1 \
+    PATH=/usr/local/texlive/2020/bin/x86_64-linuxmusl:$PATH
 
-RUN apt-get update && apt-get install -y \
-		biber \
-		latexmk \
-		make \
-		texlive-full \
-	&& rm -rf /var/lib/apt/lists/*
+WORKDIR /tmp/texlive
 
-COPY ./.latexmkrc /root/
+COPY install.profile ./
+
+RUN apk add --no-cache fontconfig-dev freetype-dev perl &&\
+    apk add --no-cache --virtual build-dependencies build-base wget tar &&\
+    rm -rf /var/cache/apk/*
+
+RUN wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz &&\
+    tar xzvf install-tl-unx.tar.gz && rm install-tl-unx.tar.gz &&\
+    cd install-tl* &&\
+    ./install-tl -profile ../install.profile &&\
+    tlmgr install \
+      latexindent \
+      latexmk &&\
+    cd .. && rm -rf install-tl*
+
+RUN apk del build-dependencies
+
+COPY latexmkrc /root/.latexmkrc

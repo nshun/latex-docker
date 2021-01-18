@@ -1,8 +1,8 @@
 #!/usr/bin/env perl
-$latex = 'uplatex %O -synctex=1 %S';
-$pdflatex = 'pdflatex %O -synctex=1 %S';
-$lualatex = 'lualatex %O -synctex=1 %S';
-$xelatex = 'xelatex %O -synctex=1 %S';
+$latex = 'uplatex %O -kanji=utf8 -synctex=1 %S';
+$pdflatex = 'pdflatex %O -kanji=utf8 -synctex=1 %S';
+$lualatex = 'lualatex %O -kanji=utf8 -synctex=1 %S';
+$xelatex = 'xelatex %O -kanji=utf8 -synctex=1 %S';
 $biber = 'biber %O --bblencoding=utf8 -u -U --output_safechars %B';
 $bibtex = 'upbibtex %O %B';
 $makeindex = 'upmendex %O -o %D %S';
