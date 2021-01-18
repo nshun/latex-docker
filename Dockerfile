@@ -12,6 +12,7 @@ COPY install.profile ./
 
 RUN apk --no-cache add \
       wget \
+      biber \
       fontconfig-dev \
       freetype-dev \
       perl \
